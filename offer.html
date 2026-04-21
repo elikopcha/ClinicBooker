@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — ClinicBooker</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #3535CC;
+    --blue-dark: #2828AA;
+    --teal: #1ABC9C;
+    --teal-dark: #0E9A7E;
+    --white: #FFFFFF;
+    --white-70: rgba(255,255,255,0.70);
+    --white-45: rgba(255,255,255,0.45);
+    --white-20: rgba(255,255,255,0.20);
+    --white-10: rgba(255,255,255,0.10);
+    --white-06: rgba(255,255,255,0.06);
+    --dark-navy: #12126B;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue);
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='70'%3E%3Cpolygon points='30,2 58,17 58,53 30,68 2,53 2,17' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 60px 70px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 6%;
+    border-bottom: 1px solid var(--white-10);
+  }
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-back {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white-45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--white); }
+
+  .main {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 64px 6% 80px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .sub {
+    font-size: 16px;
+    color: var(--white-70);
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  /* ─── CHECKLIST ─── */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--white-06);
+    border: 1px solid var(--white-10);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .check-list li::before {
+    content: '';
+    width: 20px; height: 20px;
+    min-width: 20px;
+    background: var(--teal);
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+    background-size: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 2px;
+  }
+  .check-list li .item-text { flex: 1; }
+  .check-list li .item-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .check-list li .item-desc {
+    font-size: 12px;
+    color: var(--white-45);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-block {
+    background: var(--dark-navy);
+    border: 1px solid var(--white-10);
+    border-radius: 16px;
+    padding: 36px 32px;
+    text-align: center;
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .price-amount {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .price-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white-45);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .price-then {
+    font-size: 14px;
+    color: var(--white-45);
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
+  .price-then strong { color: var(--teal); font-weight: 800; }
+
+  .btn-pay {
+    display: block;
+    width: 100%;
+    background: var(--teal);
+    color: var(--white);
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 14px;
+  }
+  .btn-pay:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+  .pay-fine {
+    font-size: 11px;
+    color: var(--white-45);
+    font-weight: 600;
+    line-height: 1.7;
+  }
+  .pay-fine span { color: var(--teal); }
+
+  footer {
+    text-align: center;
+    padding: 32px 6%;
+    border-top: 1px solid var(--white-10);
+    font-size: 12px;
+    color: var(--white-45);
+    font-weight: 600;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .main > * {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .main > *:nth-child(1) { animation-delay: 0.05s; }
+  .main > *:nth-child(2) { animation-delay: 0.12s; }
+  .main > *:nth-child(3) { animation-delay: 0.19s; }
+  .main > *:nth-child(4) { animation-delay: 0.26s; }
+  .main > *:nth-child(5) { animation-delay: 0.33s; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <a class="nav-logo" href="index- Client acq.html">Clinic<span>Booker</span></a>
+    <a class="nav-back" href="index- Client acq.html">← Back</a>
+  </nav>
+
+  <div class="main">
+
+    <p class="eyebrow">You're One Step Away</p>
+    <h1>Here's exactly what you're paying for.</h1>
+    <p class="sub">The $1,000 setup fee covers everything required to build and launch your patient acquisition system. After that, you only pay $150 per patient who actually books.</p>
+
+    <ul class="check-list">
+      <li>
+        <div class="item-text">
+          <p class="item-title">Qualified patients booked directly into your calendar</p>
+          <p class="item-desc">We run the ads, filter every lead through a qualification funnel, and only let serious, ready-to-start patients book themselves straight into your schedule. Your staff shows up to appointments — not leads.</p>
+        </div>
+      </li>
+      <li>
+        <div class="item-text">
+          <p class="item-title">Exclusive domination of your local market</p>
+          <p class="item-desc">We work with one clinic per geographic area — period. Once you're in, no competitor in your market gets access to this system. Your territory is locked the moment you pay.</p>
+        </div>
+      </li>
+      <li>
+        <div class="item-text">
+          <p class="item-title">Simple pricing: $1,000 setup, then $150 per patient — billed weekly</p>
+          <p class="item-desc">The $1,000 covers building everything: ads, funnel, and booking automation. After that, we tally every booked appointment from the prior week and invoice you $150 each. No retainer. No surprises.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="pricing-block">
+      <p class="price-label">One-time setup fee</p>
+      <div class="price-row">
+        <p class="price-amount">$1,000</p>
+      </div>
+      <p class="price-then">Then <strong>$150 per booked patient</strong> — only when we deliver</p>
+      <button class="btn-pay" onclick="alert('Payment integration coming soon.')">Pay $1,000 — Get Started →</button>
+      <p class="pay-fine">
+        <span>✓</span> No retainer &nbsp;·&nbsp; <span>✓</span> No monthly fees &nbsp;·&nbsp; <span>✓</span> Territory locked on payment
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 ClinicBooker · Built for TRT &amp; Hormone Optimization Clinics · All rights reserved</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRT Clinic Patient Acquisition</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #3535CC;
+    --blue-dark: #2828AA;
+    --blue-deeper: #1E1E88;
+    --teal: #1ABC9C;
+    --teal-dark: #0E9A7E;
+    --white: #FFFFFF;
+    --white-70: rgba(255,255,255,0.70);
+    --white-45: rgba(255,255,255,0.45);
+    --white-20: rgba(255,255,255,0.20);
+    --white-10: rgba(255,255,255,0.10);
+    --white-06: rgba(255,255,255,0.06);
+    --dark-navy: #12126B;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue);
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='70'%3E%3Cpolygon points='30,2 58,17 58,53 30,68 2,53 2,17' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 60px 70px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 6%;
+    border-bottom: 1px solid var(--white-10);
+  }
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--teal-dark); }
+
+  .hero {
+    padding: 90px 6% 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 60px 6% 50px; }
+    .hero-visual { order: -1; }
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white-10);
+    border: 1px solid var(--white-20);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    color: var(--white);
+  }
+  .hero h1 .highlight { color: var(--teal); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--white-70);
+    line-height: 1.65;
+    font-weight: 600;
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+
+  .hero-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+  .fud { font-size: 12px; color: var(--white-45); font-weight: 600; }
+  .fud span { color: var(--teal); }
+
+  .hero-visual { display: flex; flex-direction: column; gap: 14px; }
+  .roi-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 28px 26px;
+    color: var(--blue);
+  }
+  .roi-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    opacity: 0.5;
+    margin-bottom: 6px;
+  }
+  .roi-number {
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--blue);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+  }
+  .roi-number .roi-accent { color: var(--teal-dark); }
+  .roi-desc {
+    font-size: 13px;
+    color: var(--blue-dark);
+    opacity: 0.65;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .stat-mini {
+    background: var(--white-10);
+    border: 1px solid var(--white-20);
+    border-radius: 12px;
+    padding: 18px 16px;
+  }
+  .stat-mini-num {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-mini-label { font-size: 12px; color: var(--white-45); font-weight: 700; }
+
+  .divider { border: none; border-top: 1px solid var(--white-10); margin: 0 6%; }
+
+  .section { padding: 72px 6%; max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  .section h2 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .section-lead {
+    font-size: 17px;
+    color: var(--white-70);
+    font-weight: 600;
+    line-height: 1.65;
+    max-width: 620px;
+    margin-bottom: 40px;
+  }
+
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .pain-card {
+    background: var(--white-06);
+    border: 1px solid var(--white-10);
+    border-radius: 14px;
+    padding: 26px 22px;
+  }
+  .pain-card.solve { background: var(--teal); border-color: var(--teal); }
+  .pain-icon { font-size: 24px; margin-bottom: 14px; display: block; }
+  .pain-title { font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+  .pain-desc { font-size: 13px; color: var(--white-70); font-weight: 600; line-height: 1.6; }
+  .pain-card.solve .pain-desc { color: rgba(255,255,255,0.85); }
+
+  .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; }
+  @media (max-width: 640px) { .steps-row { grid-template-columns: 1fr; } }
+  .steps-row::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(16.66% + 14px);
+    right: calc(16.66% + 14px);
+    height: 1px;
+    background: var(--white-20);
+  }
+  @media (max-width: 640px) { .steps-row::before { display: none; } }
+  .step-box {
+    background: var(--white-06);
+    border: 1px solid var(--white-10);
+    border-radius: 14px;
+    padding: 28px 20px 24px;
+    text-align: center;
+    position: relative;
+  }
+  .step-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--blue);
+    font-size: 18px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-title { font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+  .step-desc { font-size: 13px; color: var(--white-70); font-weight: 600; line-height: 1.6; }
+
+  .vp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .vp-card {
+    background: var(--white-06);
+    border: 1px solid var(--white-10);
+    border-radius: 14px;
+    padding: 26px 22px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .vp-hex {
+    width: 42px; height: 42px;
+    flex-shrink: 0;
+    background: var(--teal);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .vp-title { font-size: 14px; font-weight: 800; color: var(--white); margin-bottom: 5px; line-height: 1.3; }
+  .vp-benefit { font-size: 13px; color: var(--white-70); font-weight: 600; line-height: 1.55; }
+
+  .risk-block {
+    background: var(--dark-navy);
+    border: 1px solid var(--white-10);
+    border-radius: 20px;
+    padding: 48px 44px;
+    text-align: center;
+  }
+  @media (max-width: 640px) { .risk-block { padding: 36px 24px; } }
+  .risk-block h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+  .risk-block p {
+    font-size: 16px;
+    color: var(--white-70);
+    font-weight: 600;
+    line-height: 1.65;
+    max-width: 580px;
+    margin: 0 auto 32px;
+  }
+  .risk-block p strong { color: var(--teal); font-weight: 800; }
+
+  .pricing-duo { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+  .price-pill {
+    background: var(--white-10);
+    border: 1px solid var(--white-20);
+    border-radius: 12px;
+    padding: 18px 28px;
+    text-align: center;
+    min-width: 160px;
+  }
+  .price-pill-num {
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-pill-type {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 6%;
+    border-top: 1px solid var(--white-10);
+    font-size: 12px;
+    color: var(--white-45);
+    font-weight: 600;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { opacity: 0; animation: fadeUp 0.55s ease forwards; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.25s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.35s; }
+  .hero-visual { opacity: 0; animation: fadeUp 0.55s ease 0.4s forwards; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <a class="nav-logo" href="#">Clinic<span>Booker</span></a>
+    <a class="nav-cta" href="offer.html">Get More Patients Now &rarr;</a>
+  </nav>
+
+  <section style="padding: 0 0; max-width: 1100px; margin: 0 auto;">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-tag">TRT &amp; Hormone Clinic Growth</div>
+        <h1>Fill Your TRT Clinic With <span class="highlight">10+ Qualified Patients</span> Every Month &mdash; Without Lifting a Finger</h1>
+        <p class="hero-sub">We run the ads, filter the tire-kickers, and drop booked consults straight into your calendar. Every patient we send you is worth ~$7,200 in lifetime revenue. You only pay $150 per appointment.</p>
+        <div class="hero-actions">
+          <a href="offer.html" class="btn-primary">Get More Patients Now &rarr;</a>
+          <p class="fud"><span>&#10003;</span> No retainer &nbsp;&middot;&nbsp; <span>&#10003;</span> Pay per appointment &nbsp;&middot;&nbsp; <span>&#10003;</span> Exclusive territory</p>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="roi-card">
+          <p class="roi-label">Return on every $150 appointment fee</p>
+          <p class="roi-number"><span class="roi-accent">48&times;</span> ROI</p>
+          <p class="roi-desc">Avg. TRT patient = $200/mo &times; 36 months = <strong>$7,200 LTV</strong>. You pay $150. We do the rest.</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat-mini">
+            <p class="stat-mini-num">$150</p>
+            <p class="stat-mini-label">Per booked appt.</p>
+          </div>
+          <div class="stat-mini">
+            <p class="stat-mini-num">$7,200</p>
+            <p class="stat-mini-label">Avg. patient LTV</p>
+          </div>
+          <div class="stat-mini">
+            <p class="stat-mini-num">100%</p>
+            <p class="stat-mini-label">Done for you</p>
+          </div>
+          <div class="stat-mini">
+            <p class="stat-mini-num">0</p>
+            <p class="stat-mini-label">Hours of your time</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <p class="section-eyebrow">The Problem</p>
+    <h2>Why most TRT clinics struggle with paid ads</h2>
+    <p class="section-lead">Meta's ad platform is one of the most effective patient acquisition channels &mdash; and one of the most hostile to hormone clinics. Here's what's standing between you and a full schedule.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pain-icon">&#128683;</span>
+        <p class="pain-title">Constant ad disapprovals &amp; account bans</p>
+        <p class="pain-desc">The wrong word or image in a TRT ad and Meta flags your account. Most clinic owners burn through ad budgets before figuring out what's allowed.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">&#128222;</span>
+        <p class="pain-title">Staff wasting hours on unqualified leads</p>
+        <p class="pain-desc">Generic Facebook ads attract curiosity clicks &mdash; not ready patients. Your team ends up calling people who can't afford treatment or don't understand what TRT is.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">&#128184;</span>
+        <p class="pain-title">Empty chairs = bleeding revenue</p>
+        <p class="pain-desc">Every unfilled consult slot is $200/mo in recurring revenue you never started. At 36 months of retention, an empty chair costs you $7,200 &mdash; not just a missed appointment.</p>
+      </div>
+      <div class="pain-card solve">
+        <span class="pain-icon">&#9989;</span>
+        <p class="pain-title">The fix: a system built for hormone clinics</p>
+        <p class="pain-desc">We've built the exact compliance-tested ad strategy, qualification funnel, and automated booking system your clinic needs. You plug in. We fill your calendar.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <p class="section-eyebrow">How It Works</p>
+    <h2>Three steps. Zero work on your end.</h2>
+    <p class="section-lead">We built every piece of this system ourselves. You share access to your calendar &mdash; and we handle everything from ad creative to booked appointment.</p>
+    <div class="steps-row">
+      <div class="step-box">
+        <div class="step-num">1</div>
+        <p class="step-title">We run compliant Meta ads</p>
+        <p class="step-desc">Campaigns built from the ground up to navigate Meta's health ad policies &mdash; targeting men in your market who are already experiencing low-T symptoms.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">2</div>
+        <p class="step-title">Our funnel filters the leads</p>
+        <p class="step-desc">Every prospect goes through a multi-step qualification funnel. We score by symptom severity, treatment intent, and readiness. Only warm, high-intent leads pass.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">3</div>
+        <p class="step-title">Qualified patients land on your calendar</p>
+        <p class="step-desc">Approved prospects self-book directly into your scheduling system. No phone tag. No follow-up. Your staff shows up to a full calendar of serious patients.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <p class="section-eyebrow">What You Get</p>
+    <h2>Built for TRT clinics. Managed entirely by us.</h2>
+    <p class="section-lead">Every component of this system was built in-house. No outsourcing, no freelancers learning your niche on your dime.</p>
+    <div class="vp-grid">
+      <div class="vp-card">
+        <div class="vp-hex">&#127919;</div>
+        <div>
+          <p class="vp-title">Compliant Ad Creative</p>
+          <p class="vp-benefit">Ads engineered around Meta's health policies so your account stays live and your campaigns keep running.</p>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-hex">&#128300;</div>
+        <div>
+          <p class="vp-title">Pre-Qualified Lead Filtering</p>
+          <p class="vp-benefit">Your team only interacts with patients who passed our intent-scoring funnel &mdash; ready for their first lab draw.</p>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-hex">&#128197;</div>
+        <div>
+          <p class="vp-title">Direct Calendar Booking</p>
+          <p class="vp-benefit">Qualified leads book themselves in. No staff time spent on scheduling or chasing down contacts.</p>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-hex">&#128202;</div>
+        <div>
+          <p class="vp-title">Ongoing Optimization</p>
+          <p class="vp-benefit">Continuous creative testing and funnel refinement &mdash; we improve performance every week without any check-ins required.</p>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-hex">&#128737;</div>
+        <div>
+          <p class="vp-title">Exclusive Territory Rights</p>
+          <p class="vp-benefit">We only work with one clinic per market. Your competitors don't get access to this system while you're a client.</p>
+        </div>
+      </div>
+      <div class="vp-card">
+        <div class="vp-hex">&#128176;</div>
+        <div>
+          <p class="vp-title">Performance-Only Pricing</p>
+          <p class="vp-benefit">$1,000 one-time setup, then $150 per booked appointment. If appointments don't come &mdash; you don't pay. Simple.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <div class="risk-block">
+      <h2>If we don't deliver &mdash; you don't pay.</h2>
+      <p>There's no retainer. No monthly fee. No agency billing you $3,000 while your schedule sits empty. Our model is <strong>100% performance-based</strong> &mdash; we only make money when your calendar fills up. One-time $1,000 setup, then <strong>$150 per booked appointment</strong>. That's the entire deal.</p>
+      <div class="pricing-duo">
+        <div class="price-pill">
+          <p class="price-pill-num">$1,000</p>
+          <p class="price-pill-type">One-time setup</p>
+        </div>
+        <div class="price-pill">
+          <p class="price-pill-num">$150</p>
+          <p class="price-pill-type">Per booked appt.</p>
+        </div>
+      </div>
+      <a href="offer.html" class="btn-primary">Get More Patients Now &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 ClinicBooker &middot; Built for TRT &amp; Hormone Optimization Clinics &middot; All rights reserved</p>
+  </footer>
+
+</div>
+</body>
+</html>
