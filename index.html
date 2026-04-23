@@ -362,6 +362,37 @@
   .hero-content > *:nth-child(3) { animation-delay: 0.25s; }
   .hero-content > *:nth-child(4) { animation-delay: 0.35s; }
   .hero-visual { opacity: 0; animation: fadeUp 0.55s ease 0.4s forwards; }
+
+  .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .fit-grid { grid-template-columns: 1fr; } }
+  .fit-card {
+    border-radius: 14px;
+    padding: 28px 24px;
+    border: 1px solid var(--white-10);
+    background: var(--white-06);
+  }
+  .fit-yes { border-color: var(--teal); }
+  .fit-no { border-color: rgba(255,100,100,0.35); }
+  .fit-heading {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .fit-yes .fit-heading { color: var(--teal); }
+  .fit-no .fit-heading { color: #FF7070; }
+  .fit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .fit-list li {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white-70);
+    line-height: 1.55;
+    padding-left: 16px;
+    position: relative;
+  }
+  .fit-yes .fit-list li::before { content: '\2713'; position: absolute; left: 0; color: var(--teal); font-weight: 800; }
+  .fit-no .fit-list li::before { content: '\2717'; position: absolute; left: 0; color: #FF7070; font-weight: 800; }
 </style>
 </head>
 <body>
@@ -385,26 +416,26 @@
       </div>
       <div class="hero-visual">
         <div class="roi-card">
-          <p class="roi-label">Return on every $150 appointment fee</p>
-          <p class="roi-number"><span class="roi-accent">48&times;</span> ROI</p>
-          <p class="roi-desc">Avg. TRT patient = $200/mo &times; 36 months = <strong>$7,200 LTV</strong>. You pay $150. We do the rest.</p>
+          <p class="roi-label">New recurring revenue added each month</p>
+          <p class="roi-number"><span class="roi-accent">$2,000</span>/mo</p>
+          <p class="roi-desc">10 patients &times; $200/mo = <strong>$2,000 new MRR</strong> every month. Your total cost: $2,500/mo. By month 3, you're collecting $6,000/mo from ClinicBooker patients alone &mdash; on a fixed spend.</p>
         </div>
         <div class="stat-row">
           <div class="stat-mini">
-            <p class="stat-mini-num">$150</p>
-            <p class="stat-mini-label">Per booked appt.</p>
+            <p class="stat-mini-num">$2,500</p>
+            <p class="stat-mini-label">Total monthly cost</p>
           </div>
           <div class="stat-mini">
-            <p class="stat-mini-num">$7,200</p>
-            <p class="stat-mini-label">Avg. patient LTV</p>
+            <p class="stat-mini-num">$2,000</p>
+            <p class="stat-mini-label">New MRR added/mo</p>
           </div>
           <div class="stat-mini">
-            <p class="stat-mini-num">100%</p>
-            <p class="stat-mini-label">Done for you</p>
+            <p class="stat-mini-num">$6,000</p>
+            <p class="stat-mini-label">Recurring by month 3</p>
           </div>
           <div class="stat-mini">
-            <p class="stat-mini-num">0</p>
-            <p class="stat-mini-label">Hours of your time</p>
+            <p class="stat-mini-num">$200</p>
+            <p class="stat-mini-label">Per patient/mo</p>
           </div>
         </div>
       </div>
@@ -426,7 +457,7 @@
       <div class="pain-card">
         <span class="pain-icon">&#128222;</span>
         <p class="pain-title">Staff wasting hours on unqualified leads</p>
-        <p class="pain-desc">Generic Facebook ads attract curiosity clicks &mdash; not ready patients. Your team ends up calling people who can't afford treatment or don't understand what TRT is.</p>
+        <p class="pain-desc">Generic Facebook ads attract curiosity clicks &mdash; not ready patients. Most book appointments out of curiosity, not intent, and your staff wastes hours chasing people who were never serious about starting treatment.</p>
       </div>
       <div class="pain-card">
         <span class="pain-icon">&#128184;</span>
@@ -451,17 +482,17 @@
       <div class="step-box">
         <div class="step-num">1</div>
         <p class="step-title">We run compliant Meta ads</p>
-        <p class="step-desc">Campaigns built from the ground up to navigate Meta's health ad policies &mdash; targeting men in your market who are already experiencing low-T symptoms.</p>
+        <p class="step-desc">Campaigns built and run entirely through our own ad accounts &mdash; not yours. Your clinic name never appears in the ads. We handle creative, targeting, and compliance from our end.</p>
       </div>
       <div class="step-box">
         <div class="step-num">2</div>
         <p class="step-title">Our funnel filters the leads</p>
-        <p class="step-desc">Every prospect goes through a multi-step qualification funnel. We score by symptom severity, treatment intent, and readiness. Only warm, high-intent leads pass.</p>
+        <p class="step-desc">Every lead flows through a funnel we host and operate on our own infrastructure. We nurture and score each prospect by symptom severity, intent, and readiness &mdash; your brand stays completely out of it.</p>
       </div>
       <div class="step-box">
         <div class="step-num">3</div>
         <p class="step-title">Qualified patients land on your calendar</p>
-        <p class="step-desc">Approved prospects self-book directly into your scheduling system. No phone tag. No follow-up. Your staff shows up to a full calendar of serious patients.</p>
+        <p class="step-desc">Once a lead qualifies, they're sent to your booking page &mdash; that's the first time they see your clinic's name. Your staff shows up to appointments, not cold leads.</p>
       </div>
     </div>
   </section>
@@ -512,8 +543,35 @@
         <div class="vp-hex">&#128176;</div>
         <div>
           <p class="vp-title">Performance-Only Pricing</p>
-          <p class="vp-benefit">$1,000 one-time setup, then $150 per booked appointment. If appointments don't come &mdash; you don't pay. Simple.</p>
+          <p class="vp-benefit">$1,000/mo software maintenance fee covers our ad accounts, funnel infrastructure, and lead nurturing. Then $150 per booked appointment. Simple.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <p class="section-eyebrow">Is This Right For You?</p>
+    <h2>Who we work with &mdash; and who we don't.</h2>
+    <p class="section-lead">We're selective about who we take on. This system only works when the clinic is already set up to convert and retain patients.</p>
+    <div class="fit-grid">
+      <div class="fit-card fit-yes">
+        <p class="fit-heading">We work with</p>
+        <ul class="fit-list">
+          <li>Clinics that offer telehealth consultations</li>
+          <li>Clinics that can handle 15+ additional consultations per month</li>
+          <li>Clinics with a consistent process for enrolling patients in care</li>
+          <li>One clinic per territory &mdash; first come, first served</li>
+        </ul>
+      </div>
+      <div class="fit-card fit-no">
+        <p class="fit-heading">We don't work with</p>
+        <ul class="fit-list">
+          <li>Walk-in only clinics &mdash; telehealth is required</li>
+          <li>Clinics that can't consistently convert consultations into patients</li>
+          <li>Clinics looking for cheap leads with no focus on quality</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -523,11 +581,11 @@
   <section class="section">
     <div class="risk-block">
       <h2>If we don't deliver &mdash; you don't pay.</h2>
-      <p>There's no retainer. No monthly fee. No agency billing you $3,000 while your schedule sits empty. Our model is <strong>100% performance-based</strong> &mdash; we only make money when your calendar fills up. One-time $1,000 setup, then <strong>$150 per booked appointment</strong>. That's the entire deal.</p>
+      <p>No hidden fees. No bloated agency retainers. A <strong>$1,000/mo software maintenance fee</strong> covers everything we run on our end &mdash; ad accounts, funnel infrastructure, and lead nurturing. Then <strong>$150 per booked appointment</strong>, billed weekly. That's the entire deal.</p>
       <div class="pricing-duo">
         <div class="price-pill">
-          <p class="price-pill-num">$1,000</p>
-          <p class="price-pill-type">One-time setup</p>
+          <p class="price-pill-num">$1,000<span style="font-size:14px;font-weight:700">/mo</span></p>
+          <p class="price-pill-type">Software maintenance</p>
         </div>
         <div class="price-pill">
           <p class="price-pill-num">$150</p>
