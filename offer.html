@@ -224,6 +224,19 @@
   .main > *:nth-child(3) { animation-delay: 0.19s; }
   .main > *:nth-child(4) { animation-delay: 0.26s; }
   .main > *:nth-child(5) { animation-delay: 0.33s; }
+  .guarantee-box {
+    background: rgba(26,188,156,0.10);
+    border: 1px solid var(--teal);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .guarantee-box .g-icon { font-size: 22px; flex-shrink: 0; }
+  .guarantee-title { font-size: 14px; font-weight: 800; color: var(--teal); margin-bottom: 5px; line-height: 1.3; }
+  .guarantee-desc { font-size: 13px; font-weight: 600; color: var(--white-70); line-height: 1.55; }
 </style>
 </head>
 <body>
@@ -262,6 +275,14 @@
         </div>
       </li>
     </ul>
+
+    <div class="guarantee-box">
+      <span class="g-icon">&#128737;</span>
+      <div>
+        <p class="guarantee-title">15-Consultation Guarantee</p>
+        <p class="guarantee-desc">If we don't deliver at least 15 qualified consultations in any given month, your $1,000 maintenance fee for that month is fully refunded. No questions asked.</p>
+      </div>
+    </div>
 
     <div class="pricing-block">
       <p class="price-label">Monthly software maintenance fee</p>

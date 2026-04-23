@@ -362,6 +362,24 @@
   .hero-content > *:nth-child(3) { animation-delay: 0.25s; }
   .hero-content > *:nth-child(4) { animation-delay: 0.35s; }
   .hero-visual { opacity: 0; animation: fadeUp 0.55s ease 0.4s forwards; }
+  .guarantee-strip {
+    background: rgba(26,188,156,0.12);
+    border: 1px solid var(--teal);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.6;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .guarantee-strip .g-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .guarantee-strip strong { color: var(--teal); }
+
 
   .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 640px) { .fit-grid { grid-template-columns: 1fr; } }
@@ -582,6 +600,7 @@
     <div class="risk-block">
       <h2>If we don't deliver &mdash; you don't pay.</h2>
       <p>No hidden fees. No bloated agency retainers. A <strong>$1,000/mo software maintenance fee</strong> covers everything we run on our end &mdash; ad accounts, funnel infrastructure, and lead nurturing. Then <strong>$150 per booked appointment</strong>, billed weekly. That's the entire deal.</p>
+      <div class="guarantee-strip"><span class="g-icon">&#128737;</span><span><strong>15-Consultation Guarantee &mdash;</strong> If we don't deliver at least 15 qualified consultations in any given month, your $1,000 maintenance fee for that month is fully refunded. No questions asked.</span></div>
       <div class="pricing-duo">
         <div class="price-pill">
           <p class="price-pill-num">$1,000<span style="font-size:14px;font-weight:700">/mo</span></p>
