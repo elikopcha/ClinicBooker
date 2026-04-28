@@ -395,6 +395,13 @@ body {
     </style>
 </head>
 <body>
+<script>
+// Intercept the browser back button and send visitors to the landing page
+history.pushState(null, '', window.location.href);
+window.addEventListener('popstate', function() {
+  window.location.replace('/');
+});
+</script>
 <div class="page">
 
   <nav>
