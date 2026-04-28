@@ -411,7 +411,175 @@
   }
   .fit-yes .fit-list li::before { content: '\2713'; position: absolute; left: 0; color: var(--teal); font-weight: 800; }
   .fit-no .fit-list li::before { content: '\2717'; position: absolute; left: 0; color: #FF7070; font-weight: 800; }
-</style>
+
+/* ═══════════════════════════════════════════
+   VISUAL ENHANCEMENTS — injected by fix_visuals.py
+   ═══════════════════════════════════════════ */
+
+/* 9. Ambient background glow */
+body {
+  background: radial-gradient(ellipse at 25% 40%, #3d3de0 0%, var(--blue) 55%, #2b2bb8 100%);
+}
+
+/* 10. Eyebrow glow */
+.section-eyebrow, .eyebrow {
+  text-shadow: 0 0 20px rgba(26,188,156,0.5);
+}
+
+/* 1. Scroll-entrance — initial hidden state */
+.pain-card, .vp-card, .step-box, .stat-mini, .fit-card, .check-list li {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+/* Stagger siblings */
+.pain-card:nth-child(2), .vp-card:nth-child(2), .check-list li:nth-child(2) { transition-delay: 0.08s; }
+.pain-card:nth-child(3), .vp-card:nth-child(3), .check-list li:nth-child(3) { transition-delay: 0.16s; }
+.pain-card:nth-child(4), .vp-card:nth-child(4) { transition-delay: 0.24s; }
+.vp-card:nth-child(5) { transition-delay: 0.32s; }
+.vp-card:nth-child(6) { transition-delay: 0.40s; }
+/* Visible state */
+.pain-card.in-view, .vp-card.in-view, .step-box.in-view,
+.stat-mini.in-view, .fit-card.in-view, .check-list li.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. Card hover depth — shared lift */
+.pain-card, .vp-card, .step-box, .fit-card {
+  cursor: default;
+}
+.pain-card:hover, .vp-card:hover, .step-box:hover, .fit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+  border-color: var(--white-20);
+}
+/* Override: cards that also have in-view need combined transforms */
+.pain-card.in-view:hover, .vp-card.in-view:hover, .step-box.in-view:hover, .fit-card.in-view:hover {
+  transform: translateY(-5px);
+}
+/* Teal solve card glow */
+.pain-card.solve { box-shadow: 0 6px 28px rgba(26,188,156,0.25); }
+.pain-card.solve:hover { box-shadow: 0 18px 52px rgba(26,188,156,0.45); }
+/* Card transition (must come after opacity/transform transition set above) */
+.pain-card, .vp-card, .step-box, .fit-card {
+  transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* 3. Pain icon — styled container */
+.pain-icon {
+  font-size: 28px;
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: transform 0.35s ease, background 0.35s ease;
+}
+.pain-card:hover .pain-icon {
+  transform: scale(1.12) rotate(-6deg);
+  background: rgba(255,255,255,0.12);
+}
+.pain-card.solve .pain-icon {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* 4. VP hex icon — bigger, glowing */
+.vp-hex {
+  width: 50px; height: 50px;
+  font-size: 22px;
+  filter: drop-shadow(0 0 6px rgba(26,188,156,0.35));
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+.vp-card:hover .vp-hex {
+  transform: scale(1.18) rotate(12deg);
+  filter: drop-shadow(0 0 14px rgba(26,188,156,0.7));
+}
+
+/* 5. Step number bubble glow */
+.step-num {
+  box-shadow: 0 0 0 4px rgba(26,188,156,0.15);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.step-box:hover .step-num {
+  box-shadow: 0 0 0 8px rgba(26,188,156,0.3);
+  transform: scale(1.1);
+}
+
+/* 6. Button shimmer sweep */
+.btn-primary, .btn-pay, .nav-cta {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after, .btn-pay::after, .nav-cta::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+.btn-primary:hover::after, .btn-pay:hover::after, .nav-cta:hover::after { left: 140%; }
+
+/* 7. ROI card float */
+.roi-card {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  animation: cardFloat 5s ease-in-out infinite;
+}
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
+/* 8. Stat-mini hover */
+.stat-mini {
+  transition: opacity 0.55s ease, transform 0.55s ease, background 0.3s, border-color 0.3s;
+}
+.stat-mini.in-view:hover {
+  background: var(--white-10);
+  border-color: var(--teal);
+  transform: translateY(-3px);
+}
+
+/* 11. Guarantee glow */
+.guarantee-strip, .guarantee-box {
+  box-shadow: 0 4px 24px rgba(26,188,156,0.15);
+  transition: box-shadow 0.3s;
+}
+.guarantee-strip:hover, .guarantee-box:hover {
+  box-shadow: 0 8px 32px rgba(26,188,156,0.3);
+}
+
+/* 12. Checklist hover (offer page) */
+.check-list li {
+  transition: opacity 0.55s ease, transform 0.55s ease, background 0.3s, border-color 0.3s;
+}
+.check-list li.in-view:hover {
+  background: var(--white-10);
+  border-color: var(--white-20);
+  transform: translateX(4px);
+}
+
+/* Grid layout fix — pain grid 2x2 on desktop */
+@media (min-width: 700px) {
+  .pain-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* VP grid — tighter min so 3 columns hold longer */
+@media (min-width: 900px) {
+  .vp-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+    </style>
 </head>
 <body>
 <div class="page">
@@ -622,5 +790,22 @@
   </footer>
 
 </div>
+
+<script>
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(
+    '.pain-card, .vp-card, .step-box, .stat-mini, .fit-card, .check-list li'
+  ).forEach(function(el) { observer.observe(el); });
+})();
+</script>
+
 </body>
 </html>
