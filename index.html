@@ -1013,6 +1013,97 @@ nav {
   .funnel-sub { max-width: none; }
 }
 
+
+/* ─── FUNNEL INTERACTIVE ENHANCEMENTS ────────────────────────── */
+
+/* Glassmorphism on nodes */
+.funnel-node {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.28s ease,
+              background 0.28s ease,
+              border-color 0.28s ease !important;
+}
+
+/* Hover lift + glow on every node */
+.funnel-stage { cursor: default; }
+.funnel-label, .funnel-sub { transition: color 0.22s ease; }
+
+.funnel-stage:hover .funnel-node {
+  transform: scale(1.18) translateY(-5px);
+  background: rgba(26,188,156,0.18) !important;
+  border-color: rgba(26,188,156,0.80) !important;
+  box-shadow: 0 0 28px rgba(26,188,156,0.48), 0 8px 24px rgba(0,0,0,0.22) !important;
+}
+.funnel-stage:hover .funnel-label { color: var(--teal); }
+.funnel-stage:hover .funnel-sub   { color: var(--white-70); }
+
+/* Keep patient node teal on hover */
+.funnel-stage:nth-child(5):hover .funnel-node {
+  background: var(--teal) !important;
+  box-shadow: 0 0 40px rgba(26,188,156,0.70), 0 8px 28px rgba(0,0,0,0.28) !important;
+}
+
+/* Animated shimmer traveling along the connector line */
+@keyframes funnelFlow {
+  0%   { background-position: -100% center; }
+  100% { background-position: 200% center; }
+}
+.funnel-flow::before {
+  background: linear-gradient(
+    90deg,
+    rgba(26,188,156,0.08) 0%,
+    rgba(26,188,156,0.12) 30%,
+    rgba(255,255,255,0.90) 50%,
+    rgba(26,188,156,0.12) 70%,
+    rgba(26,188,156,0.08) 100%
+  ) !important;
+  background-size: 60% 100% !important;
+  animation: funnelFlow 2.8s ease-in-out infinite !important;
+}
+
+/* Patient node: continuous soft pulse */
+@keyframes patientPulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(26,188,156,0.45); }
+  50%       { box-shadow: 0 0 36px rgba(26,188,156,0.80), 0 0 60px rgba(26,188,156,0.22); }
+}
+.funnel-stage:nth-child(5) .funnel-node {
+  animation: patientPulse 2.4s ease-in-out infinite;
+}
+
+/* Patient node: ping ripple ring */
+@keyframes nodePing {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.funnel-stage:nth-child(5) .funnel-node::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid rgba(26,188,156,0.65);
+  animation: nodePing 2.4s ease-out infinite;
+}
+
+/* Scroll-in cascade: nodes start hidden, reveal one by one */
+.funnel-stage {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.4,0.64,1);
+}
+.funnel-active .funnel-stage { opacity: 1; transform: translateY(0); }
+.funnel-active .funnel-stage:nth-child(1) { transition-delay: 0.00s; }
+.funnel-active .funnel-stage:nth-child(2) { transition-delay: 0.13s; }
+.funnel-active .funnel-stage:nth-child(3) { transition-delay: 0.26s; }
+.funnel-active .funnel-stage:nth-child(4) { transition-delay: 0.39s; }
+.funnel-active .funnel-stage:nth-child(5) { transition-delay: 0.52s; }
+
+/* Keep mobile hover-lifted node from going sideways */
+@media (max-width: 640px) {
+  .funnel-stage:hover .funnel-node { transform: scale(1.12) translateY(0); }
+}
+
 </style>
 </head>
 <body>
@@ -1316,6 +1407,22 @@ nav {
   }, { threshold: 0.8 });
 
   els.forEach(function(el) { obs.observe(el); });
+})();
+</script>
+
+
+<script>
+/* Funnel cascade reveal — fix_funnel_interactive.py */
+(function() {
+  var outer = document.querySelector('.funnel-outer');
+  if (!outer) return;
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      outer.classList.add('funnel-active');
+      obs.disconnect();
+    }
+  }, { threshold: 0.25 });
+  obs.observe(outer);
 })();
 </script>
 
