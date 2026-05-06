@@ -741,7 +741,159 @@ body {
 .bonus-single { margin-top: 48px; }
 .bonus-single .bonus-card { max-width: 680px; margin: 0 auto; }
 
-    </style>
+    
+/* ═══════════════════════════════════════════════════════
+   LUXURY ENHANCEMENTS — fix_luxury.py
+   ═══════════════════════════════════════════════════════ */
+
+/* 1. Glass sticky nav */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  background: rgba(26, 26, 158, 0.84) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* 2. Custom scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--teal), var(--teal-dark));
+  border-radius: 4px;
+}
+
+/* 3. Card glassmorphism */
+.pain-card, .vp-card, .step-box, .fit-card, .check-list li {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* 4. CTA button glow pulse */
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 14px rgba(26,188,156,0.28), 0 4px 18px rgba(0,0,0,0.22); }
+  50%       { box-shadow: 0 0 30px rgba(26,188,156,0.56), 0 6px 28px rgba(0,0,0,0.28); }
+}
+.btn-primary, .btn-pay {
+  animation: ctaGlow 3s ease-in-out infinite;
+}
+.btn-primary:hover, .btn-pay:hover {
+  animation: none;
+  box-shadow: 0 0 38px rgba(26,188,156,0.65), 0 8px 32px rgba(0,0,0,0.28) !important;
+}
+
+/* 5. Hero ambient spotlight */
+.hero { position: relative; overflow: hidden; }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -180px;
+  left: -120px;
+  width: 750px;
+  height: 750px;
+  background: radial-gradient(circle at center, rgba(26,188,156,0.10) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-content, .hero-visual { position: relative; z-index: 1; }
+
+/* Also a subtle right-side warm glow */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -80px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle at center, rgba(53,53,204,0.35) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 6. H1 highlight gradient text */
+.hero h1 .highlight {
+  background: linear-gradient(120deg, #1ABC9C 0%, #6ee8ca 45%, #0db589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 18px rgba(26,188,156,0.45));
+}
+
+/* 7. Section h2 fade gradient */
+.section h2, .risk-block h2 {
+  background: linear-gradient(175deg, #ffffff 45%, rgba(255,255,255,0.68) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 8. Stat numbers teal gradient */
+.stat-mini-num {
+  background: linear-gradient(135deg, #ffffff 20%, #1ABC9C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 9. Gradient dividers */
+.divider {
+  border: none !important;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(26,188,156,0.18) 20%,
+    rgba(26,188,156,0.30) 50%,
+    rgba(26,188,156,0.18) 80%,
+    transparent 100%
+  ) !important;
+  margin: 0 !important;
+}
+
+/* 10. Price pill gradient border */
+.pricing-duo .price-pill {
+  background:
+    linear-gradient(var(--dark-navy), var(--dark-navy)) padding-box,
+    linear-gradient(135deg, rgba(26,188,156,0.55) 0%, rgba(255,255,255,0.10) 50%, rgba(26,188,156,0.30) 100%) border-box;
+  border: 1px solid transparent !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* 11. Risk block gradient border */
+.risk-block {
+  background:
+    linear-gradient(var(--dark-navy), var(--dark-navy)) padding-box,
+    linear-gradient(135deg, rgba(26,188,156,0.35) 0%, rgba(255,255,255,0.07) 50%, rgba(26,188,156,0.20) 100%) border-box;
+  border: 1px solid transparent !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.28), 0 0 80px rgba(26,188,156,0.06);
+}
+
+/* 12. ROI card premium */
+.roi-card {
+  background: linear-gradient(145deg, #ffffff 0%, #edfcf6 100%) !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.32), 0 0 0 1px rgba(26,188,156,0.18), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+}
+.roi-accent {
+  background: linear-gradient(135deg, #0db589 0%, #1ABC9C 60%, #14d4a8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 13. Bonus card premium */
+.bonus-card {
+  background: linear-gradient(140deg, rgba(26,188,156,0.09) 0%, rgba(255,255,255,0.025) 100%) !important;
+  box-shadow: 0 8px 40px rgba(26,188,156,0.13), 0 0 0 1px rgba(26,188,156,0.22) !important;
+}
+
+/* 14. Fit-yes card accent */
+.fit-card.fit-yes {
+  box-shadow: 0 8px 32px rgba(26,188,156,0.13);
+}
+
+</style>
 </head>
 <body>
 <div class="page">
@@ -985,6 +1137,46 @@ body {
   document.querySelectorAll(
     '.pain-card, .vp-card, .step-box, .stat-mini, .fit-card, .check-list li, .bonus-card'
   ).forEach(function(el) { observer.observe(el); });
+})();
+</script>
+
+
+<script>
+/* Stat counter animation — fix_luxury.py */
+(function() {
+  var els = document.querySelectorAll('.stat-mini-num');
+  if (!els.length) return;
+
+  function animate(el) {
+    var orig = el.textContent.trim();
+    var m = orig.match(/(\d+(?:\.\d+)?)/);
+    if (!m) return;
+    var num = parseFloat(m[1]);
+    var pre = orig.slice(0, orig.indexOf(m[1]));
+    var suf = orig.slice(orig.indexOf(m[1]) + m[1].length);
+    var t0 = null, dur = 1500;
+
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 4);
+      var cur = p < 1 ? Math.floor(ease * num) : num;
+      el.textContent = pre + cur + suf;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        setTimeout(function() { animate(e.target); }, 150);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.8 });
+
+  els.forEach(function(el) { obs.observe(el); });
 })();
 </script>
 

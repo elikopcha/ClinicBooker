@@ -549,7 +549,73 @@ body {
   line-height: 1.5;
 }
 
-    </style>
+    
+/* ═══════════════════════════════════════════════════════
+   LUXURY ENHANCEMENTS — fix_luxury.py
+   ═══════════════════════════════════════════════════════ */
+
+/* 1. Glass sticky nav */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  background: rgba(26, 26, 158, 0.84) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* 2. Custom scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--teal), var(--teal-dark));
+  border-radius: 4px;
+}
+
+/* 3. Card glassmorphism */
+.pain-card, .vp-card, .step-box, .fit-card, .check-list li {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* 4. CTA button glow pulse */
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 14px rgba(26,188,156,0.28), 0 4px 18px rgba(0,0,0,0.22); }
+  50%       { box-shadow: 0 0 30px rgba(26,188,156,0.56), 0 6px 28px rgba(0,0,0,0.28); }
+}
+.btn-primary, .btn-pay {
+  animation: ctaGlow 3s ease-in-out infinite;
+}
+.btn-primary:hover, .btn-pay:hover {
+  animation: none;
+  box-shadow: 0 0 38px rgba(26,188,156,0.65), 0 8px 32px rgba(0,0,0,0.28) !important;
+}
+
+/* Offer page h1 gradient */
+.main h1 {
+  background: linear-gradient(175deg, #ffffff 45%, rgba(255,255,255,0.68) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Pricing block gradient border */
+.pricing-block {
+  background:
+    linear-gradient(var(--dark-navy), var(--dark-navy)) padding-box,
+    linear-gradient(135deg, rgba(26,188,156,0.45) 0%, rgba(255,255,255,0.07) 50%, rgba(26,188,156,0.25) 100%) border-box !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.30), 0 0 80px rgba(26,188,156,0.07);
+}
+
+/* Guarantee box premium */
+.guarantee-box {
+  background: linear-gradient(135deg, rgba(26,188,156,0.13) 0%, rgba(26,188,156,0.06) 100%) !important;
+  box-shadow: 0 4px 24px rgba(26,188,156,0.14);
+}
+
+</style>
 </head>
 <body>
 <script>
