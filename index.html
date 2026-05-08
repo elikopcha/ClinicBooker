@@ -1105,6 +1105,72 @@ nav {
   .funnel-stage:hover .funnel-node { transform: scale(1.12) translateY(0); }
 }
 
+
+/* ═══════════════════════════════════════════════════════
+   B2B REBUILD — rebuild_landing.py
+   ═══════════════════════════════════════════════════════ */
+
+/* Trust strip */
+.trust-strip {
+  background: rgba(26,188,156,0.07);
+  border-top: 1px solid rgba(26,188,156,0.18);
+  border-bottom: 1px solid rgba(26,188,156,0.18);
+  padding: 14px 6%;
+}
+.trust-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+}
+.trust-item { font-size: 13px; font-weight: 700; color: var(--white-70); display: flex; align-items: center; gap: 7px; }
+.trust-check { color: var(--teal); font-size: 14px; }
+.trust-sep { color: rgba(255,255,255,0.18); font-size: 18px; }
+@media (max-width: 640px) { .trust-sep { display: none; } .trust-inner { gap: 8px 0; flex-direction: column; } }
+
+/* ROI strip */
+.roi-strip {
+  background: var(--dark-navy);
+  border-top: 1px solid rgba(26,188,156,0.18);
+  border-bottom: 1px solid rgba(26,188,156,0.18);
+  padding: 72px 6%;
+  text-align: center;
+}
+.roi-strip-inner { max-width: 700px; margin: 0 auto; }
+.roi-strip-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+.roi-strip-num { font-size: clamp(56px, 10vw, 96px); font-weight: 900; letter-spacing: -0.03em; line-height: 1; background: linear-gradient(135deg, #ffffff 30%, #1ABC9C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.roi-strip-sub { font-size: 16px; color: var(--white-70); font-weight: 600; margin-bottom: 32px; }
+.roi-strip-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+.roi-chip { background: rgba(26,188,156,0.12); border: 1px solid rgba(26,188,156,0.30); border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 700; color: var(--white); }
+.roi-strip-cta { display: inline-block; }
+
+/* FAQ section */
+.faq-section { max-width: 720px; }
+.faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,0.09); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 22px 0; font-size: 16px; font-weight: 700; color: var(--white);
+  text-align: left; font-family: inherit; transition: color 0.2s;
+}
+.faq-q:hover { color: var(--teal); }
+.faq-icon { font-size: 22px; font-weight: 400; flex-shrink: 0; color: var(--teal); transition: transform 0.3s ease; line-height: 1; }
+.faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-a { overflow: hidden; max-height: 0; transition: max-height 0.35s ease, padding 0.35s ease; }
+.faq-a p { font-size: 15px; color: var(--white-70); font-weight: 600; line-height: 1.7; padding-bottom: 20px; }
+.faq-item:first-child { border-top: 1px solid rgba(255,255,255,0.09); }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.10s; }
+.reveal-delay-2 { transition-delay: 0.20s; }
+.reveal-delay-3 { transition-delay: 0.30s; }
+
 </style>
 </head>
 <body>
@@ -1153,6 +1219,18 @@ nav {
       </div>
     </div>
   </section>
+
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <span class="trust-item"><span class="trust-check">&#10003;</span> Exclusive territory &mdash; one clinic per area</span>
+      <span class="trust-sep">&#183;</span>
+      <span class="trust-item"><span class="trust-check">&#10003;</span> First month flat-fee only</span>
+      <span class="trust-sep">&#183;</span>
+      <span class="trust-item"><span class="trust-check">&#10003;</span> 100% compliant campaigns</span>
+      <span class="trust-sep">&#183;</span>
+      <span class="trust-item"><span class="trust-check">&#10003;</span> No long-term contracts</span>
+    </div>
+  </div>
 
   <hr class="divider">
 
@@ -1282,27 +1360,7 @@ nav {
 
   <hr class="divider">
 
-  <hr class="divider">
-
-  <section class="section">
-    <p class="section-eyebrow">Exclusive Bonuses</p>
-    <h2>One Bonus &mdash; Included Free.</h2>
-    <p class="section-lead">Every new client gets this. No extra cost, no catch.</p>
-
-    <div class="bonus-single">
-      <div class="bonus-card">
-        <span class="bonus-badge">Included Free</span>
-        <div class="bonus-hex">&#127919;</div>
-        <p class="bonus-title">Objection Killer Playbook</p>
-        <p class="bonus-sub">Arm your front desk and consultation team with the exact scripts to handle every objection and convert more consultations into paying patients.</p>
-        <p class="bonus-desc">A script library built specifically for HRT clinics. It covers the most common hesitations &mdash; price, skepticism, fear, partner pushback, and commitment issues. Hand it to your front desk or consultation team and they'll start converting more consultations into patients right away.</p>
-        <p class="bonus-value-detail">&#128200; Convert more consultations into patients without spending another dollar on ads.</p>
-        <span class="bonus-value">&#128200; More conversions, zero extra ad spend</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
+    <section class="section">
     <p class="section-eyebrow">Is This Right For You?</p>
     <h2>Who we work with &mdash; and who we don't.</h2>
     <p class="section-lead">We're selective about who we work with. This only works when you already have the basics in place.</p>
@@ -1324,6 +1382,69 @@ nav {
           <li>Clinics that can't consistently convert consultations into patients</li>
           <li>Clinics looking for cheap leads with no focus on quality</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="roi-strip">
+    <div class="roi-strip-inner">
+      <p class="roi-strip-eyebrow">Real Numbers</p>
+      <p class="roi-strip-num">$293K</p>
+      <p class="roi-strip-sub">projected Year&nbsp;1 revenue from ClinicBooker consultations</p>
+      <div class="roi-strip-chips">
+        <span class="roi-chip">~$80K annual spend</span>
+        <span class="roi-chip">$45K/mo by month&nbsp;12</span>
+        <span class="roi-chip">3.6&times; return</span>
+      </div>
+      <a href="offer.html" class="btn-primary roi-strip-cta">Claim Your Territory &rarr;</a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+    <section class="section">
+    <p class="section-eyebrow">Exclusive Bonuses</p>
+    <h2>One Bonus &mdash; Included Free.</h2>
+    <p class="section-lead">Every new client gets this. No extra cost, no catch.</p>
+
+    <div class="bonus-single">
+      <div class="bonus-card">
+        <span class="bonus-badge">Included Free</span>
+        <div class="bonus-hex">&#127919;</div>
+        <p class="bonus-title">Objection Killer Playbook</p>
+        <p class="bonus-sub">Arm your front desk and consultation team with the exact scripts to handle every objection and convert more consultations into paying patients.</p>
+        <p class="bonus-desc">A script library built specifically for HRT clinics. It covers the most common hesitations &mdash; price, skepticism, fear, partner pushback, and commitment issues. Hand it to your front desk or consultation team and they'll start converting more consultations into patients right away.</p>
+        <p class="bonus-value-detail">&#128200; Convert more consultations into patients without spending another dollar on ads.</p>
+        <span class="bonus-value">&#128200; More conversions, zero extra ad spend</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section faq-section">
+    <p class="section-eyebrow">FAQ</p>
+    <h2>Common questions.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How quickly can we get started?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Once you're onboarded, we typically have your ads live within 5&ndash;7 business days. The full funnel and nurture sequences are built out in parallel.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do I need to do anything once we launch?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Almost nothing. You give us access to your ad account and your calendar. We handle the rest &mdash; ads, funnel, email and SMS. You just show up to the consultations.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What if I&rsquo;m in a competitive market?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>That&rsquo;s actually where this works best. Our targeting and funnel are built specifically for HRT clinics, so we know how to reach the right patients even in crowded markets.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why is the first month flat-fee only?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>We want you to see real results before you&rsquo;re paying per appointment. The first month we build and launch everything. After that, you only pay $200 for appointments we actually deliver.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What does the $3,000/month cover?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Everything we manage for you &mdash; your Meta ad campaigns, the qualification funnel, and all email and SMS nurturing. No hidden costs.</p></div>
       </div>
     </div>
   </section>
@@ -1424,6 +1545,42 @@ nav {
     }
   }, { threshold: 0.25 });
   obs.observe(outer);
+})();
+</script>
+
+
+<script>
+/* FAQ accordion — rebuild_landing.py */
+(function() {
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      // close all
+      document.querySelectorAll('.faq-q').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'false');
+        b.nextElementSibling.style.maxHeight = '0';
+      });
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        var ans = btn.nextElementSibling;
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+
+<script>
+/* Scroll reveal — rebuild_landing.py */
+(function() {
+  var targets = document.querySelectorAll('.section, .roi-strip, .trust-strip, .pain-card, .vp-card, .step-box, .fit-card, .bonus-card, .check-list li');
+  targets.forEach(function(el) { el.classList.add('reveal'); });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  targets.forEach(function(el) { obs.observe(el); });
 })();
 </script>
 
