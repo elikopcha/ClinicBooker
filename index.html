@@ -493,16 +493,21 @@ body {
   border-color: rgba(255,255,255,0.3);
 }
 
-/* 4. VP hex icon — bigger, glowing */
+/* 4. VP hex icon — matches pain-icon style */
 .vp-hex {
-  width: 50px; height: 50px;
-  font-size: 22px;
-  filter: drop-shadow(0 0 6px rgba(26,188,156,0.35));
-  transition: transform 0.35s ease, filter 0.35s ease;
+  font-size: 28px;
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease, background 0.35s ease;
 }
 .vp-card:hover .vp-hex {
-  transform: scale(1.18) rotate(12deg);
-  filter: drop-shadow(0 0 14px rgba(26,188,156,0.7));
+  transform: scale(1.12) rotate(-6deg);
+  background: rgba(255,255,255,0.12);
 }
 
 /* 5. Step number bubble glow */
